@@ -58,7 +58,6 @@ func (v *V1) Status(ctx context.Context, in *emptypb.Empty) (*proto.StatusRespon
 	}
 
 	return &proto.StatusResponse{
-		Sensors: tasks.Sensors,
 		LinksInWork: lo.Map(tasks.LinksInWork, func(t *usecase.OnWork, _ int) *proto.OnWork {
 			return &proto.OnWork{
 				Link:           t.Link,

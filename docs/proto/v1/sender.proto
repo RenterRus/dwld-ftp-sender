@@ -40,9 +40,6 @@ message OnWork{
 
 message StatusResponse{
     repeated OnWork linksInWork = 1;
-    string sensors = 2;
-    int64 targetQuantity = 3;
-
 }
 
 message SetToQueueRequest{

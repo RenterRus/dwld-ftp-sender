@@ -13,7 +13,6 @@ type OnWork struct {
 }
 
 type StatusResponse struct {
-	Sensors     string
 	LinksInWork []*OnWork
 }
 type Task struct {

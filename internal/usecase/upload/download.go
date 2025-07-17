@@ -62,7 +62,6 @@ func (d *downlaoder) Status() (*usecase.StatusResponse, error) {
 	}
 
 	return &usecase.StatusResponse{
-		Sensors:     resp.Sensors,
 		LinksInWork: links,
 	}, nil
 }

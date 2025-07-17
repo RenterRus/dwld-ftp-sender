@@ -221,12 +221,10 @@ func (x *OnWork) GetMessage() string {
 }
 
 type StatusResponse struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	LinksInWork    []*OnWork              `protobuf:"bytes,1,rep,name=linksInWork,proto3" json:"linksInWork,omitempty"`
-	Sensors        string                 `protobuf:"bytes,2,opt,name=sensors,proto3" json:"sensors,omitempty"`
-	TargetQuantity int64                  `protobuf:"varint,3,opt,name=targetQuantity,proto3" json:"targetQuantity,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	LinksInWork   []*OnWork              `protobuf:"bytes,1,rep,name=linksInWork,proto3" json:"linksInWork,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *StatusResponse) Reset() {
@@ -264,20 +262,6 @@ func (x *StatusResponse) GetLinksInWork() []*OnWork {
 		return x.LinksInWork
 	}
 	return nil
-}
-
-func (x *StatusResponse) GetSensors() string {
-	if x != nil {
-		return x.Sensors
-	}
-	return ""
-}
-
-func (x *StatusResponse) GetTargetQuantity() int64 {
-	if x != nil {
-		return x.TargetQuantity
-	}
-	return 0
 }
 
 type SetToQueueRequest struct {
@@ -438,11 +422,9 @@ const file_docs_proto_v1_sender_proto_rawDesc = "" +
 	"\x06status\x18\x06 \x01(\tR\x06status\x12 \n" +
 	"\vcurrentSize\x18\a \x01(\x01R\vcurrentSize\x12\x1c\n" +
 	"\ttotalSize\x18\b \x01(\x01R\ttotalSize\x12\x18\n" +
-	"\amessage\x18\t \x01(\tR\amessage\"\x85\x01\n" +
+	"\amessage\x18\t \x01(\tR\amessage\"C\n" +
 	"\x0eStatusResponse\x121\n" +
-	"\vlinksInWork\x18\x01 \x03(\v2\x0f.grpc.v1.OnWorkR\vlinksInWork\x12\x18\n" +
-	"\asensors\x18\x02 \x01(\tR\asensors\x12&\n" +
-	"\x0etargetQuantity\x18\x03 \x01(\x03R\x0etargetQuantity\"i\n" +
+	"\vlinksInWork\x18\x01 \x03(\v2\x0f.grpc.v1.OnWorkR\vlinksInWork\"i\n" +
 	"\x11SetToQueueRequest\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x1a\n" +
 	"\bfilename\x18\x02 \x01(\tR\bfilename\x12$\n" +
