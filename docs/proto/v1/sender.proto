@@ -10,23 +10,23 @@ package grpc.v1;
 option go_package = "docs/proto/v1";
 
 service Sender {
-    rpc SetToQueue (SetToQueueRequest) returns (google.protobuf.Empty) {}
-    rpc CleanHistory(google.protobuf.Empty) returns (google.protobuf.Empty) {}
-    rpc Status (google.protobuf.Empty) returns (StatusResponse) {}
-    rpc Queue (google.protobuf.Empty) returns (HistoryResponse) {}
-    rpc Healtheck (google.protobuf.Empty) returns (HealtheckResponse) {}
+    rpc ToQueue (ToQueueRequest) returns (google.protobuf.Empty) {}
+    rpc CleanDone(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+    rpc LoadStatus (google.protobuf.Empty) returns (LoadStatusResponse) {}
+    rpc LoadQueue (google.protobuf.Empty) returns (LoadHistoryResponse) {}
+    rpc SenderHealtheck (google.protobuf.Empty) returns (SenderHealtheckResponse) {}
 }
 
-message HealtheckResponse{
+message SenderHealtheckResponse{
    optional string message = 1;
 }
 
 
-message HistoryResponse{
+message LoadHistoryResponse{
     repeated FileInfo queue = 1;
 }
 
-message OnWork{
+message FileOnWork{
     string link = 1;
     string filename = 2;
     string moveTo = 3;
@@ -38,11 +38,11 @@ message OnWork{
     string message = 9;
 }
 
-message StatusResponse{
-    repeated OnWork linksInWork = 1;
+message LoadStatusResponse{
+    repeated FileOnWork linksInWork = 1;
 }
 
-message SetToQueueRequest{
+message ToQueueRequest{
     string link = 1;
     string filename = 2;
     int32 targetQuality = 3;

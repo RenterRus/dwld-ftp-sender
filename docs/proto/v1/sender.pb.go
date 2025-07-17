@@ -24,27 +24,27 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type HealtheckResponse struct {
+type SenderHealtheckResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Message       *string                `protobuf:"bytes,1,opt,name=message,proto3,oneof" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *HealtheckResponse) Reset() {
-	*x = HealtheckResponse{}
+func (x *SenderHealtheckResponse) Reset() {
+	*x = SenderHealtheckResponse{}
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HealtheckResponse) String() string {
+func (x *SenderHealtheckResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HealtheckResponse) ProtoMessage() {}
+func (*SenderHealtheckResponse) ProtoMessage() {}
 
-func (x *HealtheckResponse) ProtoReflect() protoreflect.Message {
+func (x *SenderHealtheckResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -56,39 +56,39 @@ func (x *HealtheckResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HealtheckResponse.ProtoReflect.Descriptor instead.
-func (*HealtheckResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use SenderHealtheckResponse.ProtoReflect.Descriptor instead.
+func (*SenderHealtheckResponse) Descriptor() ([]byte, []int) {
 	return file_docs_proto_v1_sender_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *HealtheckResponse) GetMessage() string {
+func (x *SenderHealtheckResponse) GetMessage() string {
 	if x != nil && x.Message != nil {
 		return *x.Message
 	}
 	return ""
 }
 
-type HistoryResponse struct {
+type LoadHistoryResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Queue         []*FileInfo            `protobuf:"bytes,1,rep,name=queue,proto3" json:"queue,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *HistoryResponse) Reset() {
-	*x = HistoryResponse{}
+func (x *LoadHistoryResponse) Reset() {
+	*x = LoadHistoryResponse{}
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HistoryResponse) String() string {
+func (x *LoadHistoryResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HistoryResponse) ProtoMessage() {}
+func (*LoadHistoryResponse) ProtoMessage() {}
 
-func (x *HistoryResponse) ProtoReflect() protoreflect.Message {
+func (x *LoadHistoryResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -100,19 +100,19 @@ func (x *HistoryResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HistoryResponse.ProtoReflect.Descriptor instead.
-func (*HistoryResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use LoadHistoryResponse.ProtoReflect.Descriptor instead.
+func (*LoadHistoryResponse) Descriptor() ([]byte, []int) {
 	return file_docs_proto_v1_sender_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *HistoryResponse) GetQueue() []*FileInfo {
+func (x *LoadHistoryResponse) GetQueue() []*FileInfo {
 	if x != nil {
 		return x.Queue
 	}
 	return nil
 }
 
-type OnWork struct {
+type FileOnWork struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Link           string                 `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	Filename       string                 `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
@@ -127,20 +127,20 @@ type OnWork struct {
 	sizeCache      protoimpl.SizeCache
 }
 
-func (x *OnWork) Reset() {
-	*x = OnWork{}
+func (x *FileOnWork) Reset() {
+	*x = FileOnWork{}
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *OnWork) String() string {
+func (x *FileOnWork) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*OnWork) ProtoMessage() {}
+func (*FileOnWork) ProtoMessage() {}
 
-func (x *OnWork) ProtoReflect() protoreflect.Message {
+func (x *FileOnWork) ProtoReflect() protoreflect.Message {
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -152,95 +152,95 @@ func (x *OnWork) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use OnWork.ProtoReflect.Descriptor instead.
-func (*OnWork) Descriptor() ([]byte, []int) {
+// Deprecated: Use FileOnWork.ProtoReflect.Descriptor instead.
+func (*FileOnWork) Descriptor() ([]byte, []int) {
 	return file_docs_proto_v1_sender_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *OnWork) GetLink() string {
+func (x *FileOnWork) GetLink() string {
 	if x != nil {
 		return x.Link
 	}
 	return ""
 }
 
-func (x *OnWork) GetFilename() string {
+func (x *FileOnWork) GetFilename() string {
 	if x != nil {
 		return x.Filename
 	}
 	return ""
 }
 
-func (x *OnWork) GetMoveTo() string {
+func (x *FileOnWork) GetMoveTo() string {
 	if x != nil {
 		return x.MoveTo
 	}
 	return ""
 }
 
-func (x *OnWork) GetTargetQuantity() int64 {
+func (x *FileOnWork) GetTargetQuantity() int64 {
 	if x != nil {
 		return x.TargetQuantity
 	}
 	return 0
 }
 
-func (x *OnWork) GetProcentage() float64 {
+func (x *FileOnWork) GetProcentage() float64 {
 	if x != nil {
 		return x.Procentage
 	}
 	return 0
 }
 
-func (x *OnWork) GetStatus() string {
+func (x *FileOnWork) GetStatus() string {
 	if x != nil {
 		return x.Status
 	}
 	return ""
 }
 
-func (x *OnWork) GetCurrentSize() float64 {
+func (x *FileOnWork) GetCurrentSize() float64 {
 	if x != nil {
 		return x.CurrentSize
 	}
 	return 0
 }
 
-func (x *OnWork) GetTotalSize() float64 {
+func (x *FileOnWork) GetTotalSize() float64 {
 	if x != nil {
 		return x.TotalSize
 	}
 	return 0
 }
 
-func (x *OnWork) GetMessage() string {
+func (x *FileOnWork) GetMessage() string {
 	if x != nil {
 		return x.Message
 	}
 	return ""
 }
 
-type StatusResponse struct {
+type LoadStatusResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	LinksInWork   []*OnWork              `protobuf:"bytes,1,rep,name=linksInWork,proto3" json:"linksInWork,omitempty"`
+	LinksInWork   []*FileOnWork          `protobuf:"bytes,1,rep,name=linksInWork,proto3" json:"linksInWork,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *StatusResponse) Reset() {
-	*x = StatusResponse{}
+func (x *LoadStatusResponse) Reset() {
+	*x = LoadStatusResponse{}
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *StatusResponse) String() string {
+func (x *LoadStatusResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StatusResponse) ProtoMessage() {}
+func (*LoadStatusResponse) ProtoMessage() {}
 
-func (x *StatusResponse) ProtoReflect() protoreflect.Message {
+func (x *LoadStatusResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -252,19 +252,19 @@ func (x *StatusResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use StatusResponse.ProtoReflect.Descriptor instead.
-func (*StatusResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use LoadStatusResponse.ProtoReflect.Descriptor instead.
+func (*LoadStatusResponse) Descriptor() ([]byte, []int) {
 	return file_docs_proto_v1_sender_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *StatusResponse) GetLinksInWork() []*OnWork {
+func (x *LoadStatusResponse) GetLinksInWork() []*FileOnWork {
 	if x != nil {
 		return x.LinksInWork
 	}
 	return nil
 }
 
-type SetToQueueRequest struct {
+type ToQueueRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Link          string                 `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	Filename      string                 `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
@@ -273,20 +273,20 @@ type SetToQueueRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *SetToQueueRequest) Reset() {
-	*x = SetToQueueRequest{}
+func (x *ToQueueRequest) Reset() {
+	*x = ToQueueRequest{}
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *SetToQueueRequest) String() string {
+func (x *ToQueueRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SetToQueueRequest) ProtoMessage() {}
+func (*ToQueueRequest) ProtoMessage() {}
 
-func (x *SetToQueueRequest) ProtoReflect() protoreflect.Message {
+func (x *ToQueueRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -298,26 +298,26 @@ func (x *SetToQueueRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SetToQueueRequest.ProtoReflect.Descriptor instead.
-func (*SetToQueueRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use ToQueueRequest.ProtoReflect.Descriptor instead.
+func (*ToQueueRequest) Descriptor() ([]byte, []int) {
 	return file_docs_proto_v1_sender_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *SetToQueueRequest) GetLink() string {
+func (x *ToQueueRequest) GetLink() string {
 	if x != nil {
 		return x.Link
 	}
 	return ""
 }
 
-func (x *SetToQueueRequest) GetFilename() string {
+func (x *ToQueueRequest) GetFilename() string {
 	if x != nil {
 		return x.Filename
 	}
 	return ""
 }
 
-func (x *SetToQueueRequest) GetTargetQuality() int32 {
+func (x *ToQueueRequest) GetTargetQuality() int32 {
 	if x != nil {
 		return x.TargetQuality
 	}
@@ -404,14 +404,15 @@ var File_docs_proto_v1_sender_proto protoreflect.FileDescriptor
 
 const file_docs_proto_v1_sender_proto_rawDesc = "" +
 	"\n" +
-	"\x1adocs/proto/v1/sender.proto\x12\agrpc.v1\x1a\x1bgoogle/protobuf/empty.proto\">\n" +
-	"\x11HealtheckResponse\x12\x1d\n" +
+	"\x1adocs/proto/v1/sender.proto\x12\agrpc.v1\x1a\x1bgoogle/protobuf/empty.proto\"D\n" +
+	"\x17SenderHealtheckResponse\x12\x1d\n" +
 	"\amessage\x18\x01 \x01(\tH\x00R\amessage\x88\x01\x01B\n" +
 	"\n" +
-	"\b_message\":\n" +
-	"\x0fHistoryResponse\x12'\n" +
-	"\x05queue\x18\x01 \x03(\v2\x11.grpc.v1.FileInfoR\x05queue\"\x8a\x02\n" +
-	"\x06OnWork\x12\x12\n" +
+	"\b_message\">\n" +
+	"\x13LoadHistoryResponse\x12'\n" +
+	"\x05queue\x18\x01 \x03(\v2\x11.grpc.v1.FileInfoR\x05queue\"\x8e\x02\n" +
+	"\n" +
+	"FileOnWork\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x1a\n" +
 	"\bfilename\x18\x02 \x01(\tR\bfilename\x12\x16\n" +
 	"\x06moveTo\x18\x03 \x01(\tR\x06moveTo\x12&\n" +
@@ -422,10 +423,10 @@ const file_docs_proto_v1_sender_proto_rawDesc = "" +
 	"\x06status\x18\x06 \x01(\tR\x06status\x12 \n" +
 	"\vcurrentSize\x18\a \x01(\x01R\vcurrentSize\x12\x1c\n" +
 	"\ttotalSize\x18\b \x01(\x01R\ttotalSize\x12\x18\n" +
-	"\amessage\x18\t \x01(\tR\amessage\"C\n" +
-	"\x0eStatusResponse\x121\n" +
-	"\vlinksInWork\x18\x01 \x03(\v2\x0f.grpc.v1.OnWorkR\vlinksInWork\"i\n" +
-	"\x11SetToQueueRequest\x12\x12\n" +
+	"\amessage\x18\t \x01(\tR\amessage\"K\n" +
+	"\x12LoadStatusResponse\x125\n" +
+	"\vlinksInWork\x18\x01 \x03(\v2\x13.grpc.v1.FileOnWorkR\vlinksInWork\"f\n" +
+	"\x0eToQueueRequest\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x1a\n" +
 	"\bfilename\x18\x02 \x01(\tR\bfilename\x12$\n" +
 	"\rtargetQuality\x18\x03 \x01(\x05R\rtargetQuality\"\xa9\x01\n" +
@@ -437,14 +438,14 @@ const file_docs_proto_v1_sender_proto_rawDesc = "" +
 	"\amessage\x18\x05 \x01(\tH\x01R\amessage\x88\x01\x01B\a\n" +
 	"\x05_nameB\n" +
 	"\n" +
-	"\b_message2\xcb\x02\n" +
-	"\x06Sender\x12B\n" +
+	"\b_message2\xde\x02\n" +
+	"\x06Sender\x12<\n" +
+	"\aToQueue\x12\x17.grpc.v1.ToQueueRequest\x1a\x16.google.protobuf.Empty\"\x00\x12=\n" +
+	"\tCleanDone\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12C\n" +
 	"\n" +
-	"SetToQueue\x12\x1a.grpc.v1.SetToQueueRequest\x1a\x16.google.protobuf.Empty\"\x00\x12@\n" +
-	"\fCleanHistory\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12;\n" +
-	"\x06Status\x12\x16.google.protobuf.Empty\x1a\x17.grpc.v1.StatusResponse\"\x00\x12;\n" +
-	"\x05Queue\x12\x16.google.protobuf.Empty\x1a\x18.grpc.v1.HistoryResponse\"\x00\x12A\n" +
-	"\tHealtheck\x12\x16.google.protobuf.Empty\x1a\x1a.grpc.v1.HealtheckResponse\"\x00B\x0fZ\rdocs/proto/v1b\x06proto3"
+	"LoadStatus\x12\x16.google.protobuf.Empty\x1a\x1b.grpc.v1.LoadStatusResponse\"\x00\x12C\n" +
+	"\tLoadQueue\x12\x16.google.protobuf.Empty\x1a\x1c.grpc.v1.LoadHistoryResponse\"\x00\x12M\n" +
+	"\x0fSenderHealtheck\x12\x16.google.protobuf.Empty\x1a .grpc.v1.SenderHealtheckResponse\"\x00B\x0fZ\rdocs/proto/v1b\x06proto3"
 
 var (
 	file_docs_proto_v1_sender_proto_rawDescOnce sync.Once
@@ -460,27 +461,27 @@ func file_docs_proto_v1_sender_proto_rawDescGZIP() []byte {
 
 var file_docs_proto_v1_sender_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_docs_proto_v1_sender_proto_goTypes = []any{
-	(*HealtheckResponse)(nil), // 0: grpc.v1.HealtheckResponse
-	(*HistoryResponse)(nil),   // 1: grpc.v1.HistoryResponse
-	(*OnWork)(nil),            // 2: grpc.v1.OnWork
-	(*StatusResponse)(nil),    // 3: grpc.v1.StatusResponse
-	(*SetToQueueRequest)(nil), // 4: grpc.v1.SetToQueueRequest
-	(*FileInfo)(nil),          // 5: grpc.v1.FileInfo
-	(*emptypb.Empty)(nil),     // 6: google.protobuf.Empty
+	(*SenderHealtheckResponse)(nil), // 0: grpc.v1.SenderHealtheckResponse
+	(*LoadHistoryResponse)(nil),     // 1: grpc.v1.LoadHistoryResponse
+	(*FileOnWork)(nil),              // 2: grpc.v1.FileOnWork
+	(*LoadStatusResponse)(nil),      // 3: grpc.v1.LoadStatusResponse
+	(*ToQueueRequest)(nil),          // 4: grpc.v1.ToQueueRequest
+	(*FileInfo)(nil),                // 5: grpc.v1.FileInfo
+	(*emptypb.Empty)(nil),           // 6: google.protobuf.Empty
 }
 var file_docs_proto_v1_sender_proto_depIdxs = []int32{
-	5, // 0: grpc.v1.HistoryResponse.queue:type_name -> grpc.v1.FileInfo
-	2, // 1: grpc.v1.StatusResponse.linksInWork:type_name -> grpc.v1.OnWork
-	4, // 2: grpc.v1.Sender.SetToQueue:input_type -> grpc.v1.SetToQueueRequest
-	6, // 3: grpc.v1.Sender.CleanHistory:input_type -> google.protobuf.Empty
-	6, // 4: grpc.v1.Sender.Status:input_type -> google.protobuf.Empty
-	6, // 5: grpc.v1.Sender.Queue:input_type -> google.protobuf.Empty
-	6, // 6: grpc.v1.Sender.Healtheck:input_type -> google.protobuf.Empty
-	6, // 7: grpc.v1.Sender.SetToQueue:output_type -> google.protobuf.Empty
-	6, // 8: grpc.v1.Sender.CleanHistory:output_type -> google.protobuf.Empty
-	3, // 9: grpc.v1.Sender.Status:output_type -> grpc.v1.StatusResponse
-	1, // 10: grpc.v1.Sender.Queue:output_type -> grpc.v1.HistoryResponse
-	0, // 11: grpc.v1.Sender.Healtheck:output_type -> grpc.v1.HealtheckResponse
+	5, // 0: grpc.v1.LoadHistoryResponse.queue:type_name -> grpc.v1.FileInfo
+	2, // 1: grpc.v1.LoadStatusResponse.linksInWork:type_name -> grpc.v1.FileOnWork
+	4, // 2: grpc.v1.Sender.ToQueue:input_type -> grpc.v1.ToQueueRequest
+	6, // 3: grpc.v1.Sender.CleanDone:input_type -> google.protobuf.Empty
+	6, // 4: grpc.v1.Sender.LoadStatus:input_type -> google.protobuf.Empty
+	6, // 5: grpc.v1.Sender.LoadQueue:input_type -> google.protobuf.Empty
+	6, // 6: grpc.v1.Sender.SenderHealtheck:input_type -> google.protobuf.Empty
+	6, // 7: grpc.v1.Sender.ToQueue:output_type -> google.protobuf.Empty
+	6, // 8: grpc.v1.Sender.CleanDone:output_type -> google.protobuf.Empty
+	3, // 9: grpc.v1.Sender.LoadStatus:output_type -> grpc.v1.LoadStatusResponse
+	1, // 10: grpc.v1.Sender.LoadQueue:output_type -> grpc.v1.LoadHistoryResponse
+	0, // 11: grpc.v1.Sender.SenderHealtheck:output_type -> grpc.v1.SenderHealtheckResponse
 	7, // [7:12] is the sub-list for method output_type
 	2, // [2:7] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

@@ -22,22 +22,22 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Sender_SetToQueue_FullMethodName   = "/grpc.v1.Sender/SetToQueue"
-	Sender_CleanHistory_FullMethodName = "/grpc.v1.Sender/CleanHistory"
-	Sender_Status_FullMethodName       = "/grpc.v1.Sender/Status"
-	Sender_Queue_FullMethodName        = "/grpc.v1.Sender/Queue"
-	Sender_Healtheck_FullMethodName    = "/grpc.v1.Sender/Healtheck"
+	Sender_ToQueue_FullMethodName         = "/grpc.v1.Sender/ToQueue"
+	Sender_CleanDone_FullMethodName       = "/grpc.v1.Sender/CleanDone"
+	Sender_LoadStatus_FullMethodName      = "/grpc.v1.Sender/LoadStatus"
+	Sender_LoadQueue_FullMethodName       = "/grpc.v1.Sender/LoadQueue"
+	Sender_SenderHealtheck_FullMethodName = "/grpc.v1.Sender/SenderHealtheck"
 )
 
 // SenderClient is the client API for Sender service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SenderClient interface {
-	SetToQueue(ctx context.Context, in *SetToQueueRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CleanHistory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	Status(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*StatusResponse, error)
-	Queue(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HistoryResponse, error)
-	Healtheck(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HealtheckResponse, error)
+	ToQueue(ctx context.Context, in *ToQueueRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	CleanDone(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	LoadStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*LoadStatusResponse, error)
+	LoadQueue(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*LoadHistoryResponse, error)
+	SenderHealtheck(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*SenderHealtheckResponse, error)
 }
 
 type senderClient struct {
@@ -48,50 +48,50 @@ func NewSenderClient(cc grpc.ClientConnInterface) SenderClient {
 	return &senderClient{cc}
 }
 
-func (c *senderClient) SetToQueue(ctx context.Context, in *SetToQueueRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *senderClient) ToQueue(ctx context.Context, in *ToQueueRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Sender_SetToQueue_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Sender_ToQueue_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *senderClient) CleanHistory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *senderClient) CleanDone(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Sender_CleanHistory_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Sender_CleanDone_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *senderClient) Status(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*StatusResponse, error) {
+func (c *senderClient) LoadStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*LoadStatusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(StatusResponse)
-	err := c.cc.Invoke(ctx, Sender_Status_FullMethodName, in, out, cOpts...)
+	out := new(LoadStatusResponse)
+	err := c.cc.Invoke(ctx, Sender_LoadStatus_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *senderClient) Queue(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HistoryResponse, error) {
+func (c *senderClient) LoadQueue(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*LoadHistoryResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HistoryResponse)
-	err := c.cc.Invoke(ctx, Sender_Queue_FullMethodName, in, out, cOpts...)
+	out := new(LoadHistoryResponse)
+	err := c.cc.Invoke(ctx, Sender_LoadQueue_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *senderClient) Healtheck(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HealtheckResponse, error) {
+func (c *senderClient) SenderHealtheck(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*SenderHealtheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HealtheckResponse)
-	err := c.cc.Invoke(ctx, Sender_Healtheck_FullMethodName, in, out, cOpts...)
+	out := new(SenderHealtheckResponse)
+	err := c.cc.Invoke(ctx, Sender_SenderHealtheck_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -102,11 +102,11 @@ func (c *senderClient) Healtheck(ctx context.Context, in *emptypb.Empty, opts ..
 // All implementations must embed UnimplementedSenderServer
 // for forward compatibility.
 type SenderServer interface {
-	SetToQueue(context.Context, *SetToQueueRequest) (*emptypb.Empty, error)
-	CleanHistory(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
-	Status(context.Context, *emptypb.Empty) (*StatusResponse, error)
-	Queue(context.Context, *emptypb.Empty) (*HistoryResponse, error)
-	Healtheck(context.Context, *emptypb.Empty) (*HealtheckResponse, error)
+	ToQueue(context.Context, *ToQueueRequest) (*emptypb.Empty, error)
+	CleanDone(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
+	LoadStatus(context.Context, *emptypb.Empty) (*LoadStatusResponse, error)
+	LoadQueue(context.Context, *emptypb.Empty) (*LoadHistoryResponse, error)
+	SenderHealtheck(context.Context, *emptypb.Empty) (*SenderHealtheckResponse, error)
 	mustEmbedUnimplementedSenderServer()
 }
 
@@ -117,20 +117,20 @@ type SenderServer interface {
 // pointer dereference when methods are called.
 type UnimplementedSenderServer struct{}
 
-func (UnimplementedSenderServer) SetToQueue(context.Context, *SetToQueueRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetToQueue not implemented")
+func (UnimplementedSenderServer) ToQueue(context.Context, *ToQueueRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ToQueue not implemented")
 }
-func (UnimplementedSenderServer) CleanHistory(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CleanHistory not implemented")
+func (UnimplementedSenderServer) CleanDone(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CleanDone not implemented")
 }
-func (UnimplementedSenderServer) Status(context.Context, *emptypb.Empty) (*StatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Status not implemented")
+func (UnimplementedSenderServer) LoadStatus(context.Context, *emptypb.Empty) (*LoadStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoadStatus not implemented")
 }
-func (UnimplementedSenderServer) Queue(context.Context, *emptypb.Empty) (*HistoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Queue not implemented")
+func (UnimplementedSenderServer) LoadQueue(context.Context, *emptypb.Empty) (*LoadHistoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoadQueue not implemented")
 }
-func (UnimplementedSenderServer) Healtheck(context.Context, *emptypb.Empty) (*HealtheckResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Healtheck not implemented")
+func (UnimplementedSenderServer) SenderHealtheck(context.Context, *emptypb.Empty) (*SenderHealtheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SenderHealtheck not implemented")
 }
 func (UnimplementedSenderServer) mustEmbedUnimplementedSenderServer() {}
 func (UnimplementedSenderServer) testEmbeddedByValue()                {}
@@ -153,92 +153,92 @@ func RegisterSenderServer(s grpc.ServiceRegistrar, srv SenderServer) {
 	s.RegisterService(&Sender_ServiceDesc, srv)
 }
 
-func _Sender_SetToQueue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetToQueueRequest)
+func _Sender_ToQueue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ToQueueRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SenderServer).SetToQueue(ctx, in)
+		return srv.(SenderServer).ToQueue(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sender_SetToQueue_FullMethodName,
+		FullMethod: Sender_ToQueue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SenderServer).SetToQueue(ctx, req.(*SetToQueueRequest))
+		return srv.(SenderServer).ToQueue(ctx, req.(*ToQueueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Sender_CleanHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Sender_CleanDone_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SenderServer).CleanHistory(ctx, in)
+		return srv.(SenderServer).CleanDone(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sender_CleanHistory_FullMethodName,
+		FullMethod: Sender_CleanDone_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SenderServer).CleanHistory(ctx, req.(*emptypb.Empty))
+		return srv.(SenderServer).CleanDone(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Sender_Status_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Sender_LoadStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SenderServer).Status(ctx, in)
+		return srv.(SenderServer).LoadStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sender_Status_FullMethodName,
+		FullMethod: Sender_LoadStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SenderServer).Status(ctx, req.(*emptypb.Empty))
+		return srv.(SenderServer).LoadStatus(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Sender_Queue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Sender_LoadQueue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SenderServer).Queue(ctx, in)
+		return srv.(SenderServer).LoadQueue(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sender_Queue_FullMethodName,
+		FullMethod: Sender_LoadQueue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SenderServer).Queue(ctx, req.(*emptypb.Empty))
+		return srv.(SenderServer).LoadQueue(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Sender_Healtheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Sender_SenderHealtheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SenderServer).Healtheck(ctx, in)
+		return srv.(SenderServer).SenderHealtheck(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sender_Healtheck_FullMethodName,
+		FullMethod: Sender_SenderHealtheck_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SenderServer).Healtheck(ctx, req.(*emptypb.Empty))
+		return srv.(SenderServer).SenderHealtheck(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -251,24 +251,24 @@ var Sender_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*SenderServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SetToQueue",
-			Handler:    _Sender_SetToQueue_Handler,
+			MethodName: "ToQueue",
+			Handler:    _Sender_ToQueue_Handler,
 		},
 		{
-			MethodName: "CleanHistory",
-			Handler:    _Sender_CleanHistory_Handler,
+			MethodName: "CleanDone",
+			Handler:    _Sender_CleanDone_Handler,
 		},
 		{
-			MethodName: "Status",
-			Handler:    _Sender_Status_Handler,
+			MethodName: "LoadStatus",
+			Handler:    _Sender_LoadStatus_Handler,
 		},
 		{
-			MethodName: "Queue",
-			Handler:    _Sender_Queue_Handler,
+			MethodName: "LoadQueue",
+			Handler:    _Sender_LoadQueue_Handler,
 		},
 		{
-			MethodName: "Healtheck",
-			Handler:    _Sender_Healtheck_Handler,
+			MethodName: "SenderHealtheck",
+			Handler:    _Sender_SenderHealtheck_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
