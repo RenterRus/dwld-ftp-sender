@@ -20,7 +20,7 @@ type LinkModelRequest struct {
 
 type SQLRepo interface {
 	SelectHistory(withoutStatus *entity.Status) ([]LinkModel, error)
-	Insert(link string, maxQuality int) ([]LinkModel, error)
+	Insert(link, filename string, maxQuality int) ([]LinkModel, error)
 	UpdateStatus(link string, status entity.Status) ([]LinkModel, error)
 	DeleteHistory() ([]LinkModel, error)
 

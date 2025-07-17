@@ -21,8 +21,8 @@ func NewDownload(dbRepo persistent.SQLRepo, cache temporary.CacheRepo) usecase.D
 	}
 }
 
-func (d *downlaoder) SetToQueue(link string, targerQunatity int32) error {
-	if _, err := d.dbRepo.Insert(link, int(targerQunatity)); err != nil {
+func (d *downlaoder) SetToQueue(link, filename string, targerQunatity int32) error {
+	if _, err := d.dbRepo.Insert(link, filename, int(targerQunatity)); err != nil {
 		return fmt.Errorf("SetToQueue: %w", err)
 	}
 

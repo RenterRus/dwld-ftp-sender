@@ -68,8 +68,8 @@ func (p *persistentRepo) SelectHistory(withoutStatus *entity.Status) ([]LinkMode
 	return resp, nil
 }
 
-func (p *persistentRepo) Insert(link string, maxQuality int) ([]LinkModel, error) {
-	_, err := p.db.Exec("insert into links (link, filename, target_quality, work_status) values($1, $2, $3, $4);", link, "COMING SOON", maxQuality, entity.StatusMapping[entity.TO_SEND])
+func (p *persistentRepo) Insert(link, filename string, maxQuality int) ([]LinkModel, error) {
+	_, err := p.db.Exec("insert into links (link, filename, target_quality, work_status) values($1, $2, $3, $4);", link, filename, maxQuality, entity.StatusMapping[entity.TO_SEND])
 	if err != nil {
 		return nil, fmt.Errorf("insert new link: %w", err)
 	}

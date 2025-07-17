@@ -58,7 +58,7 @@ func NewApp(configPath string) error {
 	// gRPC Server
 	grpcServer := grpcserver.New(grpcserver.Port(conf.GRPC.Host, strconv.Itoa(conf.GRPC.Port)))
 	grpc.NewRouter(grpcServer.App, downloadUsecases)
-	grpcServer.Start()
+	go grpcServer.Start()
 
 	// Waiting signal
 	interrupt := make(chan os.Signal, 1)

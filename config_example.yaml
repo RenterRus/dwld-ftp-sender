@@ -1,6 +1,6 @@
 grpc:
     host: "127.0.0.1"
-    port: 8888
+    port: 9888
     enable: true
 
 ftp:
@@ -8,15 +8,15 @@ ftp:
         host: "192.168.0.105"
         port: 22
         enable: true
-    user: "------"
-    pass: "------"
-    remotedirectory: "-------------"
+    user: "-----------"
+    pass: "------------"
+    remotedirectory: "------------"
 
-pathtodb: "------------"
+pathtodb: "---------------"
 namedb: "links.db"
 
 source:
-    workPath: "----------"
+    workPath: "---------------------"
 
 cache:
     host: "127.0.0.1"

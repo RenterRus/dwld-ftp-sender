@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	TIMEOUT_LOAD_SEC = 17
+	TIMEOUT_LOAD_SEC = 7
 )
 
 type FTPSender struct {
@@ -44,7 +44,6 @@ func (f *FTPSender) Loader(ctx context.Context) {
 				break
 			}
 			if link == nil {
-				fmt.Println("file to send not found")
 				break
 			}
 

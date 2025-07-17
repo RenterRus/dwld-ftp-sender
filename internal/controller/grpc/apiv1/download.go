@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (v *V1) SetToQueue(ctx context.Context, in *proto.ToQueueRequest) (*emptypb.Empty, error) {
+func (v *V1) ToQueue(ctx context.Context, in *proto.ToQueueRequest) (*emptypb.Empty, error) {
 	fmt.Println("================\nSetToQueue")
 	defer func() {
 		fmt.Println(in)
@@ -26,14 +26,14 @@ func (v *V1) SetToQueue(ctx context.Context, in *proto.ToQueueRequest) (*emptypb
 		return nil, fmt.Errorf("SetToQueue: empty request")
 	}
 
-	if err := v.u.SetToQueue(in.GetLink(), in.TargetQuality); err != nil {
+	if err := v.u.SetToQueue(in.GetLink(), in.Filename, in.TargetQuality); err != nil {
 		return nil, fmt.Errorf("SetToQueue: %w", err)
 	}
 
 	return &emptypb.Empty{}, nil
 }
 
-func (v *V1) CleanHistory(ctx context.Context, in *emptypb.Empty) (*emptypb.Empty, error) {
+func (v *V1) CleanDone(ctx context.Context, in *emptypb.Empty) (*emptypb.Empty, error) {
 	fmt.Println("================\nCleanHistory")
 	defer func() {
 		fmt.Println("================")
@@ -46,7 +46,7 @@ func (v *V1) CleanHistory(ctx context.Context, in *emptypb.Empty) (*emptypb.Empt
 	return &emptypb.Empty{}, nil
 }
 
-func (v *V1) Status(ctx context.Context, in *emptypb.Empty) (*proto.LoadStatusResponse, error) {
+func (v *V1) LoadStatus(ctx context.Context, in *emptypb.Empty) (*proto.LoadStatusResponse, error) {
 	fmt.Println("================\nStatus")
 	defer func() {
 		fmt.Println("================")
@@ -74,7 +74,7 @@ func (v *V1) Status(ctx context.Context, in *emptypb.Empty) (*proto.LoadStatusRe
 	}, nil
 }
 
-func (v *V1) Queue(ctx context.Context, in *emptypb.Empty) (*proto.LoadHistoryResponse, error) {
+func (v *V1) LoadQueue(ctx context.Context, in *emptypb.Empty) (*proto.LoadHistoryResponse, error) {
 	fmt.Println("================\nQueue")
 	defer func() {
 		fmt.Println("================")
@@ -92,7 +92,7 @@ func (v *V1) Queue(ctx context.Context, in *emptypb.Empty) (*proto.LoadHistoryRe
 	}, nil
 }
 
-func (v *V1) Healtheck(ctx context.Context, in *emptypb.Empty) (*proto.SenderHealtheckResponse, error) {
+func (v *V1) SenderHealtheck(ctx context.Context, in *emptypb.Empty) (*proto.SenderHealtheckResponse, error) {
 	fmt.Println("================\nHealtheck")
 	defer func() {
 		fmt.Println("================")
