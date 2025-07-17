@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+// Импорт пустого типа
+import "google/protobuf/empty.proto";
+
+// Имя пакета
+package grpc.v1;
+
+// Опция расположения генерашки
+option go_package = "docs/proto/v1";
+
+service Sender {
+    rpc SetToQueue (SetToQueueRequest) returns (google.protobuf.Empty) {}
+    rpc CleanHistory(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+    rpc Status (google.protobuf.Empty) returns (StatusResponse) {}
+    rpc Queue (google.protobuf.Empty) returns (HistoryResponse) {}
+    rpc Healtheck (google.protobuf.Empty) returns (HealtheckResponse) {}
+}
+
+message HealtheckResponse{
+   optional string message = 1;
+}
+
+
+message HistoryResponse{
+    repeated Task queue = 1;
+}
+
+message OnWork{
+    string link = 1;
+    string filename = 2;
+    string moveTo = 3;
+    int64 targetQuantity = 4;
+    double procentage = 5;
+    string status = 6;
+    double currentSize = 7;
+    double totalSize = 8;
+    string message = 9;
+}
+
+message StatusResponse{
+    repeated OnWork linksInWork = 1;
+    string sensors = 2;
+    int64 targetQuantity = 3;
+
+}
+
+message SetToQueueRequest{
+    string link = 1;
+    string filename = 2;
+    int32 targetQuality = 3;
+}
+
+
+message Task {
+    string link = 1;
+    string status = 2;
+    string targetQuality = 3;
+    optional string name = 4;
+    optional string message = 5;
+}

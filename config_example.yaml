@@ -1,0 +1,22 @@
+grpc:
+    host: "127.0.0.1"
+    port: 8888
+    enable: true
+
+ftp:
+    addr:
+        host: "192.168.0.105"
+        port: 22
+        enable: true
+    user: "------"
+    pass: "------"
+    remotedirectory: "/home/artur/raid/video"
+
+pathtodb: "/Users/arturdavydov/Downloads/dwld-ftp-sender"
+namedb: "links.db"
+
+
+cache:
+    host: "127.0.0.1"
+    port: 9999
+    enable: true
