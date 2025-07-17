@@ -31,7 +31,7 @@ func NewApp(configPath string) error {
 		return fmt.Errorf("ReadConfig: %w", err)
 	}
 
-	db := persistent.NewSQLRepo(sqldb.NewDB(conf.PathToDB, conf.NameDB), conf.Downloader.WorkPath)
+	db := persistent.NewSQLRepo(sqldb.NewDB(conf.PathToDB, conf.NameDB), conf.Source.WorkPath)
 	cc := cache.NewCache(conf.Cache.Host, conf.Cache.Port)
 	cache := temporary.NewMemCache(cc)
 
@@ -45,7 +45,7 @@ func NewApp(configPath string) error {
 		Host:       conf.FTP.Addr.Host,
 		User:       conf.FTP.User,
 		Pass:       conf.FTP.Pass,
-		LocalPath:  conf.Downloader.WorkPath,
+		LocalPath:  conf.Source.WorkPath,
 		RemotePath: conf.FTP.RemoteDirectory,
 		Port:       conf.FTP.Addr.Port,
 		SqlRepo:    db,

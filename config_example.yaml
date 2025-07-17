@@ -10,13 +10,15 @@ ftp:
         enable: true
     user: "------"
     pass: "------"
-    remotedirectory: "/home/artur/raid/video"
+    remotedirectory: "-------------"
 
-pathtodb: "/Users/arturdavydov/Downloads/dwld-ftp-sender"
+pathtodb: "------------"
 namedb: "links.db"
 
+source:
+    workPath: "----------"
 
 cache:
     host: "127.0.0.1"
-    port: 9999
+    port: 8123
     enable: true

@@ -33,10 +33,7 @@ type Stage struct {
 }
 
 type DownloadConfig struct {
-	Threads       int     `validate:"required"`
-	PercentToNext int     `validate:"required"`
-	WorkPath      string  `validate:"required"`
-	Stages        []Stage `validate:"required"`
+	WorkPath string `validate:"required"`
 }
 
 type Config struct {
@@ -47,7 +44,7 @@ type Config struct {
 
 	Cache Server `validate:"required"`
 
-	Downloader DownloadConfig `validate:"required"`
+	Source DownloadConfig `validate:"required"`
 }
 
 func ReadConfig(path string, fileName string) (*Config, error) {

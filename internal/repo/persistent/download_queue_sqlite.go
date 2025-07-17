@@ -25,7 +25,7 @@ func NewSQLRepo(db *sqldb.DB, workDir string) SQLRepo {
 }
 
 func (p *persistentRepo) workToNew() {
-	_, err := p.db.Exec("update links set work_status = $1 where work_status = $2", entity.StatusMapping[entity.NEW], entity.StatusMapping[entity.WORK])
+	_, err := p.db.Exec("update links set work_status = $1 where work_status = $2", entity.StatusMapping[entity.TO_SEND], entity.StatusMapping[entity.SENDING])
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -36,9 +36,9 @@ func (p *persistentRepo) SelectHistory(withoutStatus *entity.Status) ([]LinkMode
 	var err error
 
 	if withoutStatus != nil {
-		rows, err = p.db.Select("select link, filename, work_status, message, target_quantity from links where work_status != $1", entity.StatusMapping[*withoutStatus])
+		rows, err = p.db.Select("select link, filename, work_status, message, target_quality from links where work_status != $1", entity.StatusMapping[*withoutStatus])
 	} else {
-		rows, err = p.db.Select("select link, filename, work_status, message, target_quantity from links")
+		rows, err = p.db.Select("select link, filename, work_status, message, target_quality from links")
 	}
 
 	defer func() {
@@ -69,7 +69,7 @@ func (p *persistentRepo) SelectHistory(withoutStatus *entity.Status) ([]LinkMode
 }
 
 func (p *persistentRepo) Insert(link string, maxQuality int) ([]LinkModel, error) {
-	_, err := p.db.Exec("insert into links (link, filename, target_quantity, work_status) values($1, $2, $3, $4);", link, "COMING SOON", maxQuality, entity.StatusMapping[entity.SENDING])
+	_, err := p.db.Exec("insert into links (link, filename, target_quality, work_status) values($1, $2, $3, $4);", link, "COMING SOON", maxQuality, entity.StatusMapping[entity.TO_SEND])
 	if err != nil {
 		return nil, fmt.Errorf("insert new link: %w", err)
 	}
@@ -96,7 +96,7 @@ func (p *persistentRepo) DeleteHistory() ([]LinkModel, error) {
 }
 
 func (p *persistentRepo) SelectOne(status entity.Status) (*LinkModel, error) {
-	rows, err := p.db.Select(`select link, filename, work_status, message, target_quantity from links
+	rows, err := p.db.Select(`select link, filename, work_status, message, target_quality from links
 	 where work_status = $1 order by RANDOM() limit 1;`, entity.StatusMapping[status])
 	defer func() {
 		rows.Close()
@@ -127,7 +127,7 @@ func (p *persistentRepo) Update(l *LinkModelRequest) error {
 	work_status = $1,
 	filename = $2,
     message = $3,
-    target_quantity = $4
+    target_quality = $4
  	where link = $5;`, entity.StatusMapping[l.WorkStatus], *l.Filename, *l.Message, l.TargetQuantity, l.Link)
 	if err != nil {
 		return fmt.Errorf("update link: %w", err)
