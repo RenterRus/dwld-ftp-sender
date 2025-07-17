@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/RenterRus/dwld-ftp-sender/internal/app"
 )
@@ -16,6 +17,7 @@ func main() {
 		log.Fatal("config flag not found")
 		os.Exit(1)
 	}
+	time.Sleep(time.Second * 3)
 
 	if err := app.NewApp(*path); err != nil {
 		fmt.Println(err)

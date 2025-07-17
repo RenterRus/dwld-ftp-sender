@@ -23,7 +23,7 @@ message HealtheckResponse{
 
 
 message HistoryResponse{
-    repeated Task queue = 1;
+    repeated FileInfo queue = 1;
 }
 
 message OnWork{
@@ -49,7 +49,7 @@ message SetToQueueRequest{
 }
 
 
-message Task {
+message FileInfo {
     string link = 1;
     string status = 2;
     string targetQuality = 3;

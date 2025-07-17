@@ -70,7 +70,7 @@ func (x *HealtheckResponse) GetMessage() string {
 
 type HistoryResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Queue         []*Task                `protobuf:"bytes,1,rep,name=queue,proto3" json:"queue,omitempty"`
+	Queue         []*FileInfo            `protobuf:"bytes,1,rep,name=queue,proto3" json:"queue,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -105,7 +105,7 @@ func (*HistoryResponse) Descriptor() ([]byte, []int) {
 	return file_docs_proto_v1_sender_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *HistoryResponse) GetQueue() []*Task {
+func (x *HistoryResponse) GetQueue() []*FileInfo {
 	if x != nil {
 		return x.Queue
 	}
@@ -324,7 +324,7 @@ func (x *SetToQueueRequest) GetTargetQuality() int32 {
 	return 0
 }
 
-type Task struct {
+type FileInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Link          string                 `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
@@ -335,20 +335,20 @@ type Task struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Task) Reset() {
-	*x = Task{}
+func (x *FileInfo) Reset() {
+	*x = FileInfo{}
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Task) String() string {
+func (x *FileInfo) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Task) ProtoMessage() {}
+func (*FileInfo) ProtoMessage() {}
 
-func (x *Task) ProtoReflect() protoreflect.Message {
+func (x *FileInfo) ProtoReflect() protoreflect.Message {
 	mi := &file_docs_proto_v1_sender_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -360,40 +360,40 @@ func (x *Task) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Task.ProtoReflect.Descriptor instead.
-func (*Task) Descriptor() ([]byte, []int) {
+// Deprecated: Use FileInfo.ProtoReflect.Descriptor instead.
+func (*FileInfo) Descriptor() ([]byte, []int) {
 	return file_docs_proto_v1_sender_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *Task) GetLink() string {
+func (x *FileInfo) GetLink() string {
 	if x != nil {
 		return x.Link
 	}
 	return ""
 }
 
-func (x *Task) GetStatus() string {
+func (x *FileInfo) GetStatus() string {
 	if x != nil {
 		return x.Status
 	}
 	return ""
 }
 
-func (x *Task) GetTargetQuality() string {
+func (x *FileInfo) GetTargetQuality() string {
 	if x != nil {
 		return x.TargetQuality
 	}
 	return ""
 }
 
-func (x *Task) GetName() string {
+func (x *FileInfo) GetName() string {
 	if x != nil && x.Name != nil {
 		return *x.Name
 	}
 	return ""
 }
 
-func (x *Task) GetMessage() string {
+func (x *FileInfo) GetMessage() string {
 	if x != nil && x.Message != nil {
 		return *x.Message
 	}
@@ -408,9 +408,9 @@ const file_docs_proto_v1_sender_proto_rawDesc = "" +
 	"\x11HealtheckResponse\x12\x1d\n" +
 	"\amessage\x18\x01 \x01(\tH\x00R\amessage\x88\x01\x01B\n" +
 	"\n" +
-	"\b_message\"6\n" +
-	"\x0fHistoryResponse\x12#\n" +
-	"\x05queue\x18\x01 \x03(\v2\r.grpc.v1.TaskR\x05queue\"\x8a\x02\n" +
+	"\b_message\":\n" +
+	"\x0fHistoryResponse\x12'\n" +
+	"\x05queue\x18\x01 \x03(\v2\x11.grpc.v1.FileInfoR\x05queue\"\x8a\x02\n" +
 	"\x06OnWork\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x1a\n" +
 	"\bfilename\x18\x02 \x01(\tR\bfilename\x12\x16\n" +
@@ -428,8 +428,8 @@ const file_docs_proto_v1_sender_proto_rawDesc = "" +
 	"\x11SetToQueueRequest\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x1a\n" +
 	"\bfilename\x18\x02 \x01(\tR\bfilename\x12$\n" +
-	"\rtargetQuality\x18\x03 \x01(\x05R\rtargetQuality\"\xa5\x01\n" +
-	"\x04Task\x12\x12\n" +
+	"\rtargetQuality\x18\x03 \x01(\x05R\rtargetQuality\"\xa9\x01\n" +
+	"\bFileInfo\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\tR\x06status\x12$\n" +
 	"\rtargetQuality\x18\x03 \x01(\tR\rtargetQuality\x12\x17\n" +
@@ -465,11 +465,11 @@ var file_docs_proto_v1_sender_proto_goTypes = []any{
 	(*OnWork)(nil),            // 2: grpc.v1.OnWork
 	(*StatusResponse)(nil),    // 3: grpc.v1.StatusResponse
 	(*SetToQueueRequest)(nil), // 4: grpc.v1.SetToQueueRequest
-	(*Task)(nil),              // 5: grpc.v1.Task
+	(*FileInfo)(nil),          // 5: grpc.v1.FileInfo
 	(*emptypb.Empty)(nil),     // 6: google.protobuf.Empty
 }
 var file_docs_proto_v1_sender_proto_depIdxs = []int32{
-	5, // 0: grpc.v1.HistoryResponse.queue:type_name -> grpc.v1.Task
+	5, // 0: grpc.v1.HistoryResponse.queue:type_name -> grpc.v1.FileInfo
 	2, // 1: grpc.v1.StatusResponse.linksInWork:type_name -> grpc.v1.OnWork
 	4, // 2: grpc.v1.Sender.SetToQueue:input_type -> grpc.v1.SetToQueueRequest
 	6, // 3: grpc.v1.Sender.CleanHistory:input_type -> google.protobuf.Empty

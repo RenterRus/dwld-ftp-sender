@@ -86,7 +86,7 @@ func (v *V1) Queue(ctx context.Context, in *emptypb.Empty) (*proto.HistoryRespon
 	}
 
 	return &proto.HistoryResponse{
-		Queue: lo.Map(tasks, func(t *usecase.Task, _ int) *proto.Task {
+		Queue: lo.Map(tasks, func(t *usecase.Task, _ int) *proto.FileInfo {
 			return response.TasksToLinks(t)
 		}),
 	}, nil

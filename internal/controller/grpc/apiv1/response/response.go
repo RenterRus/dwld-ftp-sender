@@ -6,8 +6,8 @@ import (
 	"github.com/RenterRus/dwld-ftp-sender/internal/usecase"
 )
 
-func TasksToLinks(task *usecase.Task) *proto.Task {
-	return &proto.Task{
+func TasksToLinks(task *usecase.Task) *proto.FileInfo {
+	return &proto.FileInfo{
 		Link:          task.Link,
 		TargetQuality: task.MaxQuantity,
 		Status:        task.Status,
