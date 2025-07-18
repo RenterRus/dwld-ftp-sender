@@ -6,11 +6,11 @@ toolchain go1.24.5
 
 require (
 	github.com/AlekSi/pointer v1.2.0
-	github.com/RenterRus/dwld-bot v0.0.0-20250717004310-b68972ace5d3
 	github.com/bradfitz/gomemcache v0.0.0-20250403215159-8d39553ac7cf
 	github.com/go-playground/validator/v10 v10.27.0
 	github.com/mattn/go-sqlite3 v1.14.28
 	github.com/pkg/sftp v1.13.9
+	github.com/redis/go-redis/v9 v9.11.0
 	github.com/samber/lo v1.51.0
 	github.com/spf13/viper v1.20.1
 	golang.org/x/crypto v0.40.0
@@ -20,6 +20,8 @@ require (
 )
 
 require (
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
