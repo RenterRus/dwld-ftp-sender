@@ -132,15 +132,10 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 
 	fmt.Println("Remote dir (ftp)")
 	remoteDir := filepath.Dir(fmt.Sprintf("%s/%s", f.RemotePath, userName))
-	if err = sc.MkdirAll(remoteDir); err != nil {
-		fmt.Println("Create remote dir:", err.Error())
-		fmt.Println("Use default value:", f.RemotePath)
-		remoteDir = filepath.Dir(f.RemotePath)
-	} else {
-		fmt.Println("Create remote dir (ftp):", fmt.Sprintf("%s/%s", fmt.Sprintf("%s/%s", f.RemotePath, userName), filename))
-	}
+	_ = sc.MkdirAll(remoteDir)
+	fmt.Println("Create remote dir (ftp):", fmt.Sprintf("%s/%s/%s", f.RemotePath, userName, filename))
 
-	dstFile, err := sc.Create(fmt.Sprintf("%s/%s", f.RemotePath, filename))
+	dstFile, err := sc.Create(fmt.Sprintf("%s/%s/%s", f.RemotePath, userName, filename))
 	if err != nil {
 		return fmt.Errorf("ftp send (create remote): %w", err)
 	}
@@ -167,7 +162,7 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 			totalSize := float64(0)
 			select {
 			case <-t.C:
-				rmFile, err := sc.OpenFile(fmt.Sprintf("%s/%s", f.RemotePath, filename), os.O_RDONLY)
+				rmFile, err := sc.OpenFile(fmt.Sprintf("%s/%s/%s", f.RemotePath, userName, filename), os.O_RDONLY)
 				if err != nil {
 					fmt.Printf("ftp send (OpenFile): %s", err.Error())
 				}
@@ -227,7 +222,7 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 		}
 	}()
 
-	fmt.Println("Copy file to remote (ftp):", fmt.Sprintf("%s/%s", f.RemotePath, filename))
+	fmt.Println("Copy file to remote (ftp):", fmt.Sprintf("%s/%s/%s", f.RemotePath, userName, filename))
 
 	f.sqlRepo.UpdateStatus(link, entity.SENDING)
 
