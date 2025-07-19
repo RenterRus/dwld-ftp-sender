@@ -158,6 +158,8 @@ func (f *FTPSender) send(filename, link string, targetQuantity int) error {
 			Message:      "sending",
 		})
 		for {
+			curSize := float64(0)
+			totalSize := float64(0)
 			select {
 			case <-t.C:
 				rmFile, err := sc.OpenFile(fmt.Sprintf("%s/%s", f.RemotePath, filename), os.O_RDONLY)
@@ -167,8 +169,11 @@ func (f *FTPSender) send(filename, link string, targetQuantity int) error {
 
 				rmStat, err := rmFile.Stat()
 				if err != nil {
+					curSize = float64(float64(st.Size()/1024) / 1024)
+					totalSize = float64(float64(st.Size()/1024) / 1024)
 					fmt.Printf("ftp send (Stat): %s", err.Error())
 					fmt.Printf("Sending via ftp [%.2fmb][%s] %s\n", float64(float64(st.Size()/1024)/1024), time.Now().Format(time.DateTime), filename)
+
 					f.cache.SetStatus(&temporary.TaskRequest{
 						FileName:     filename,
 						Link:         link,
@@ -176,14 +181,15 @@ func (f *FTPSender) send(filename, link string, targetQuantity int) error {
 						MaxQuality:   targetQuantity,
 						Procentage:   100,
 						Status:       entity.SENDING,
-						DownloadSize: float64(float64(st.Size()/1024) / 1024),
-						CurrentSize:  float64(float64(st.Size()/1024) / 1024),
+						DownloadSize: totalSize,
+						CurrentSize:  curSize,
 						Message:      "sending (without detail stat)",
 					})
 				} else {
-					curSize := float64(float64(rmStat.Size()/1024) / 1024)
-					totalSize := float64(float64(st.Size()/1024) / 1024)
+					curSize = float64(float64(rmStat.Size()/1024) / 1024)
+					totalSize = float64(float64(st.Size()/1024) / 1024)
 					fmt.Printf("Sending via ftp [%.2f%%][%.2f/%.2fmb][%s] %s\n", (curSize/totalSize)*100.0, curSize, totalSize, time.Now().Format(time.DateTime), filename)
+
 					f.cache.SetStatus(&temporary.TaskRequest{
 						FileName:     filename,
 						Link:         link,
@@ -199,6 +205,17 @@ func (f *FTPSender) send(filename, link string, targetQuantity int) error {
 				rmFile.Close()
 
 			case <-notify:
+				f.cache.SetStatus(&temporary.TaskRequest{
+					FileName:     filename,
+					Link:         link,
+					MoveTo:       f.RemotePath,
+					MaxQuality:   targetQuantity,
+					Procentage:   100.0,
+					Status:       entity.DONE,
+					DownloadSize: totalSize,
+					CurrentSize:  curSize,
+					Message:      "sended",
+				})
 				f.cache.LinkDone(link)
 				return
 			}
