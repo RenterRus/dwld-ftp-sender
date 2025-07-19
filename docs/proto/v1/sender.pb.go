@@ -268,7 +268,8 @@ type ToQueueRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Link          string                 `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	Filename      string                 `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
-	TargetQuality int32                  `protobuf:"varint,3,opt,name=targetQuality,proto3" json:"targetQuality,omitempty"`
+	UserName      string                 `protobuf:"bytes,3,opt,name=userName,proto3" json:"userName,omitempty"`
+	TargetQuality int32                  `protobuf:"varint,4,opt,name=targetQuality,proto3" json:"targetQuality,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -313,6 +314,13 @@ func (x *ToQueueRequest) GetLink() string {
 func (x *ToQueueRequest) GetFilename() string {
 	if x != nil {
 		return x.Filename
+	}
+	return ""
+}
+
+func (x *ToQueueRequest) GetUserName() string {
+	if x != nil {
+		return x.UserName
 	}
 	return ""
 }
@@ -425,11 +433,12 @@ const file_docs_proto_v1_sender_proto_rawDesc = "" +
 	"\ttotalSize\x18\b \x01(\x01R\ttotalSize\x12\x18\n" +
 	"\amessage\x18\t \x01(\tR\amessage\"K\n" +
 	"\x12LoadStatusResponse\x125\n" +
-	"\vlinksInWork\x18\x01 \x03(\v2\x13.grpc.v1.FileOnWorkR\vlinksInWork\"f\n" +
+	"\vlinksInWork\x18\x01 \x03(\v2\x13.grpc.v1.FileOnWorkR\vlinksInWork\"\x82\x01\n" +
 	"\x0eToQueueRequest\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x1a\n" +
-	"\bfilename\x18\x02 \x01(\tR\bfilename\x12$\n" +
-	"\rtargetQuality\x18\x03 \x01(\x05R\rtargetQuality\"\xa9\x01\n" +
+	"\bfilename\x18\x02 \x01(\tR\bfilename\x12\x1a\n" +
+	"\buserName\x18\x03 \x01(\tR\buserName\x12$\n" +
+	"\rtargetQuality\x18\x04 \x01(\x05R\rtargetQuality\"\xa9\x01\n" +
 	"\bFileInfo\x12\x12\n" +
 	"\x04link\x18\x01 \x01(\tR\x04link\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\tR\x06status\x12$\n" +

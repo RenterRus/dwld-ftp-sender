@@ -45,7 +45,8 @@ message LoadStatusResponse{
 message ToQueueRequest{
     string link = 1;
     string filename = 2;
-    int32 targetQuality = 3;
+    string userName = 3;
+    int32 targetQuality = 4;
 }
 
 
