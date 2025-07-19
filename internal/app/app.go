@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -53,6 +54,8 @@ func NewApp(configPath string) error {
 		Enable:     conf.FTP.Addr.Enable,
 	})
 
+	ctx, cncl := context.WithCancel(context.Background())
+	go cache.Revisor(ctx)
 	go ftpSender.Start()
 
 	// gRPC Server
@@ -71,6 +74,7 @@ func NewApp(configPath string) error {
 		log.Fatal(fmt.Errorf("app - Run - grpcServer.Notify: %w", err))
 	}
 
+	cncl()
 	cc.Close()
 	ftpSender.Stop()
 	err = grpcServer.Shutdown()
