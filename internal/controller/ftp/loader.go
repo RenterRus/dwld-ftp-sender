@@ -71,7 +71,7 @@ func (f *FTPSender) presend(link *persistent.LinkModel) error {
 	})
 
 	if f.Enable {
-		if err := f.send(*link.Filename, link.Link, link.TargetQuantity); err != nil {
+		if err := f.send(*link.Filename, link.UserName, link.Link, link.TargetQuantity); err != nil {
 			fmt.Printf("send file by ftp: %s\\n", err.Error())
 			fmt.Printf("attempt with hard mp4")
 
@@ -85,7 +85,7 @@ func (f *FTPSender) presend(link *persistent.LinkModel) error {
 			}
 			filename.WriteString(".mp4")
 
-			if err := f.send(filename.String(), link.Link, link.TargetQuantity); err != nil {
+			if err := f.send(filename.String(), link.UserName, link.Link, link.TargetQuantity); err != nil {
 				fmt.Printf("send file by ftp (with mp4): %s\\n", err.Error())
 
 				return fmt.Errorf("send file: %s", err.Error())
@@ -99,7 +99,7 @@ func (f *FTPSender) presend(link *persistent.LinkModel) error {
 	return nil
 }
 
-func (f *FTPSender) send(filename, link string, targetQuantity int) error {
+func (f *FTPSender) send(filename, userName, link string, targetQuantity int) error {
 	fmt.Println("Prepare to send (ftp)")
 	config := &ssh.ClientConfig{
 		User: f.User,
@@ -131,10 +131,15 @@ func (f *FTPSender) send(filename, link string, targetQuantity int) error {
 	defer srcFile.Close()
 
 	fmt.Println("Remote dir (ftp)")
-	remoteDir := filepath.Dir(f.RemotePath)
-	_ = sc.MkdirAll(remoteDir)
+	remoteDir := filepath.Dir(fmt.Sprintf("%s/%s", f.RemotePath, userName))
+	if err = sc.MkdirAll(remoteDir); err != nil {
+		fmt.Println("Create remote dir:", err.Error())
+		fmt.Println("Use default value:", f.RemotePath)
+		remoteDir = filepath.Dir(f.RemotePath)
+	} else {
+		fmt.Println("Create remote dir (ftp):", fmt.Sprintf("%s/%s", fmt.Sprintf("%s/%s", f.RemotePath, userName), filename))
+	}
 
-	fmt.Println("Create remote dir (ftp):", fmt.Sprintf("%s/%s", f.RemotePath, filename))
 	dstFile, err := sc.Create(fmt.Sprintf("%s/%s", f.RemotePath, filename))
 	if err != nil {
 		return fmt.Errorf("ftp send (create remote): %w", err)

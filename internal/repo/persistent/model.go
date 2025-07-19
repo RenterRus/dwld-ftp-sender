@@ -8,6 +8,7 @@ type LinkModel struct {
 	WorkStatus     string  `sql:"work_status"`
 	Message        *string `sql:"message"`
 	TargetQuantity int     `sql:"target_quantity"`
+	UserName       string  `sql:"user_name"`
 }
 
 type LinkModelRequest struct {
@@ -20,7 +21,7 @@ type LinkModelRequest struct {
 
 type SQLRepo interface {
 	SelectHistory(withoutStatus *entity.Status) ([]LinkModel, error)
-	Insert(link, filename string, maxQuality int) ([]LinkModel, error)
+	Insert(link, filename, userName string, maxQuality int) ([]LinkModel, error)
 	UpdateStatus(link string, status entity.Status) ([]LinkModel, error)
 	DeleteHistory() ([]LinkModel, error)
 

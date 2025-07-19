@@ -26,7 +26,7 @@ func (v *V1) ToQueue(ctx context.Context, in *proto.ToQueueRequest) (*emptypb.Em
 		return nil, fmt.Errorf("SetToQueue: empty request")
 	}
 
-	if err := v.u.SetToQueue(in.GetLink(), in.Filename, in.TargetQuality); err != nil {
+	if err := v.u.SetToQueue(in.GetLink(), in.GetFilename(), in.GetUserName(), in.GetTargetQuality()); err != nil {
 		return nil, fmt.Errorf("SetToQueue: %w", err)
 	}
 
