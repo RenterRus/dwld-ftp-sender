@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -131,8 +130,7 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 	defer srcFile.Close()
 
 	fmt.Println("Remote dir (ftp)")
-	remoteDir := filepath.Dir(fmt.Sprintf("%s/%s", f.RemotePath, userName))
-	_ = sc.MkdirAll(remoteDir)
+	_ = sc.MkdirAll(fmt.Sprintf("%s/%s", f.RemotePath, userName))
 	fmt.Println("Create remote dir (ftp):", fmt.Sprintf("%s/%s/%s", f.RemotePath, userName, filename))
 
 	dstFile, err := sc.Create(fmt.Sprintf("%s/%s/%s", f.RemotePath, userName, filename))
