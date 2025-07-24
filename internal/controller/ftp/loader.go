@@ -51,6 +51,14 @@ func (f *FTPSender) Loader(ctx context.Context) {
 				break
 			}
 
+			go func() {
+				defer func() {
+					f.sqlRepo.DeleteHistory()
+					fmt.Println("Autoclean history")
+				}()
+				time.Sleep(time.Minute * TIMEOUT_LOAD_SEC)
+			}()
+
 			fmt.Printf("file %s sended\n", *link.Filename)
 		case <-ctx.Done():
 			fmt.Println("context failed")
