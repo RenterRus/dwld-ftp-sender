@@ -54,7 +54,6 @@ func (f *FTPSender) Loader(ctx context.Context) {
 			go func() {
 				defer func() {
 					f.sqlRepo.DeleteHistory()
-					fmt.Println("Autoclean history")
 				}()
 				time.Sleep(time.Minute * TIMEOUT_LOAD_SEC)
 			}()
