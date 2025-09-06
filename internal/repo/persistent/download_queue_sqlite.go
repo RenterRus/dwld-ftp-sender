@@ -109,7 +109,9 @@ func (p *persistentRepo) deleteEmpty() {
 		return
 	}
 
-	fmt.Printf("Rows with empty filename deleted: %d\n", num)
+	if num > 0 {
+		fmt.Printf("Rows with empty filename deleted: %d\n", num)
+	}
 }
 
 func (p *persistentRepo) SelectOne(status entity.Status) (*LinkModel, error) {
