@@ -33,9 +33,9 @@ func NewMemCache(conn *cache.Cache) CacheRepo {
 func (c *Cache) GetStatus() (*CacheResponse, error) {
 	resp := make(map[string]map[string]TaskResp)
 
-	for _, link := range c.links {
+	for row_link, link := range c.links {
 		for file := range link {
-			res := c.get(file)
+			res := c.get(row_link)
 			if res == "" {
 				fmt.Println("miss cache for", file)
 				continue
@@ -75,7 +75,7 @@ func (c *Cache) SetStatus(task *TaskRequest) error {
 		return fmt.Errorf("SetStatus(Marshal): %w", err)
 	}
 
-	c.set(task.FileName, string(b))
+	c.set(task.Link, string(b))
 
 	if _, ok := c.links[task.Link]; !ok {
 		c.links[task.Link] = make(map[string]struct{})
