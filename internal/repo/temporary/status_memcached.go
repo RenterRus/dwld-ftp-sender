@@ -14,6 +14,7 @@ import (
 const (
 	RETOUCH_CACHE  = 120
 	TOUCH_LIFETIME = RETOUCH_CACHE*2 + 17
+	TTL_CACHE      = 17
 )
 
 type Cache struct {
@@ -80,6 +81,11 @@ func (c *Cache) SetStatus(task *TaskRequest) error {
 		c.links[task.Link] = make(map[string]struct{})
 	}
 	c.links[task.Link][task.FileName] = struct{}{}
+
+	go func() {
+		<-time.NewTicker(time.Hour * TTL_CACHE).C
+		delete(c.links, task.Link)
+	}()
 
 	return nil
 }

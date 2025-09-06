@@ -81,7 +81,7 @@ func (p *persistentRepo) Insert(link, filename, userName string, maxQuality int)
 func (p *persistentRepo) UpdateStatus(link string, status entity.Status) ([]LinkModel, error) {
 	_, err := p.db.Exec("update links set work_status = $1 where link = $2;", entity.StatusMapping[status], link)
 	if err != nil {
-		return nil, fmt.Errorf("insert new link: %w", err)
+		return nil, fmt.Errorf("UpdateStatus: %w", err)
 	}
 
 	return p.SelectHistory(nil)
@@ -90,13 +90,31 @@ func (p *persistentRepo) UpdateStatus(link string, status entity.Status) ([]Link
 func (p *persistentRepo) DeleteHistory() ([]LinkModel, error) {
 	_, err := p.db.Exec("delete from links where work_status = $1;", entity.StatusMapping[entity.DONE])
 	if err != nil {
-		return nil, fmt.Errorf("insert new link: %w", err)
+		return nil, fmt.Errorf("DeleteHistory: %w", err)
 	}
 
 	return p.SelectHistory(nil)
 }
 
+func (p *persistentRepo) deleteEmpty() {
+	r, err := p.db.Exec("delete from links where filename = '';")
+	if err != nil {
+		fmt.Println(fmt.Errorf("deleteEmpty: %w", err))
+		return
+	}
+
+	num, err := r.RowsAffected()
+	if err != nil {
+		fmt.Println(fmt.Errorf("deleteEmpty(): failed check rows affected: %w", err))
+		return
+	}
+
+	fmt.Printf("Rows with empty filename deleted: %d\n", num)
+}
+
 func (p *persistentRepo) SelectOne(status entity.Status) (*LinkModel, error) {
+	p.deleteEmpty()
+
 	rows, err := p.db.Select(`select link, filename, work_status, message, target_quality, user_name from links
 	 where work_status = $1 order by RANDOM() limit 1;`, entity.StatusMapping[status])
 	defer func() {
