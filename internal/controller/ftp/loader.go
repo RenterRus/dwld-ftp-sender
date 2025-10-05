@@ -150,7 +150,7 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 
 	notify := make(chan struct{}, 1)
 	go func() {
-		t := time.NewTicker(TIMEOUT_LOAD_SEC * time.Second)
+		t := time.NewTicker(time.Second)
 		f.cache.SetStatus(&temporary.TaskRequest{
 			FileName:     filename,
 			Link:         link,
