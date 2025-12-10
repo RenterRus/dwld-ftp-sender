@@ -33,7 +33,7 @@ jobs:
       run: go mod verify
 
     - name: Verify dependencies
-      run: go install github.com/lrstanley/go-ytdlp
+      run: go git github.com/pkg/sftp
 
     - name: Build
       run: go build -v cmd/...
