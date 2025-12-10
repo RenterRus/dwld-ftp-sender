@@ -31,8 +31,7 @@ jobs:
 
     - name: Verify dependencies
       run: go mod verify
-      run: go get github.com/pkg/sftp
-
+   
     - name: Build
       run: go build -v cmd/...
 
