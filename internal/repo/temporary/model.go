@@ -36,7 +36,7 @@ type CacheResponse struct {
 
 type CacheRepo interface {
 	GetStatus() (*CacheResponse, error)
-	SetStatus(*TaskRequest) error
+	SetStatus(*TaskRequest)
 	LinkDone(link string)
 	Revisor(context.Context)
 }

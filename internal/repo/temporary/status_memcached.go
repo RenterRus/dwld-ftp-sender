@@ -69,10 +69,11 @@ func (c *Cache) GetStatus() (*CacheResponse, error) {
 	}, nil
 }
 
-func (c *Cache) SetStatus(task *TaskRequest) error {
+func (c *Cache) SetStatus(task *TaskRequest) {
 	b, err := json.Marshal(task)
 	if err != nil {
-		return fmt.Errorf("SetStatus(Marshal): %w", err)
+		fmt.Println("SetStatus(Marshal): ", err.Error())
+		return
 	}
 
 	c.set(task.Link, string(b))
@@ -86,8 +87,6 @@ func (c *Cache) SetStatus(task *TaskRequest) error {
 		<-time.NewTicker(time.Hour * TTL_CACHE).C
 		delete(c.links, task.Link)
 	}()
-
-	return nil
 }
 
 func (c *Cache) LinkDone(link string) {

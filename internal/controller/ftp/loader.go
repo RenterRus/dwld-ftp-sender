@@ -53,7 +53,9 @@ func (f *FTPSender) Loader(ctx context.Context) {
 
 			go func() {
 				defer func() {
-					f.sqlRepo.DeleteHistory()
+					if _, err := f.sqlRepo.DeleteHistory(); err != nil {
+						fmt.Println("DeleteHistory: ", err.Error())
+					}
 				}()
 				time.Sleep(time.Minute * TIMEOUT_LOAD_SEC)
 			}()
@@ -120,21 +122,33 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 	if err != nil {
 		return fmt.Errorf("ftp send (dial): %w", err)
 	}
-	defer client.Close()
+	defer func() {
+		if err := client.Close(); err != nil {
+			fmt.Println("send.Close: ", err.Error())
+		}
+	}()
 
 	fmt.Println("Prepare new client (ftp)")
 	sc, err := sftp.NewClient(client)
 	if err != nil {
 		return fmt.Errorf("ftp send (newClient): %w", err)
 	}
-	defer sc.Close()
+	defer func() {
+		if err := sc.Close(); err != nil {
+			fmt.Println("send.Close: ", err.Error())
+		}
+	}()
 
 	fmt.Println("Open local file (ftp):", fmt.Sprintf("%s/%s", f.LocalPath, filename))
 	srcFile, err := os.Open(fmt.Sprintf("%s/%s", f.LocalPath, filename))
 	if err != nil {
 		return fmt.Errorf("ftp send (open): %w", err)
 	}
-	defer srcFile.Close()
+	defer func() {
+		if err := srcFile.Close(); err != nil {
+			fmt.Println("send.Close: ", err.Error())
+		}
+	}()
 
 	fmt.Println("Remote dir (ftp)")
 	_ = sc.MkdirAll(fmt.Sprintf("%s/%s", f.RemotePath, userName))
@@ -144,7 +158,11 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 	if err != nil {
 		return fmt.Errorf("ftp send (create remote): %w", err)
 	}
-	defer dstFile.Close()
+	defer func() {
+		if err := dstFile.Close(); err != nil {
+			fmt.Println("send.Close: ", err.Error())
+		}
+	}()
 
 	st, _ := srcFile.Stat()
 
@@ -207,7 +225,10 @@ func (f *FTPSender) send(filename, userName, link string, targetQuantity int) er
 						Message:      "sending",
 					})
 				}
-				rmFile.Close()
+
+				if err := rmFile.Close(); err != nil {
+					fmt.Println("send.Close: ", err.Error())
+				}
 
 			case <-notify:
 				f.cache.SetStatus(&temporary.TaskRequest{

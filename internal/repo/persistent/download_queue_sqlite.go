@@ -42,7 +42,9 @@ func (p *persistentRepo) SelectHistory(withoutStatus *entity.Status) ([]LinkMode
 	}
 
 	defer func() {
-		rows.Close()
+		if err := rows.Close(); err != nil {
+			fmt.Println("send.Close: ", err.Error())
+		}
 	}()
 	if err != nil {
 		return nil, fmt.Errorf("SelectHistory: %w", err)
@@ -78,13 +80,10 @@ func (p *persistentRepo) Insert(link, filename, userName string, maxQuality int)
 	return p.SelectHistory(nil)
 }
 
-func (p *persistentRepo) UpdateStatus(link string, status entity.Status) ([]LinkModel, error) {
-	_, err := p.db.Exec("update links set work_status = $1 where link = $2;", entity.StatusMapping[status], link)
-	if err != nil {
-		return nil, fmt.Errorf("UpdateStatus: %w", err)
+func (p *persistentRepo) UpdateStatus(link string, status entity.Status) {
+	if _, err := p.db.Exec("update links set work_status = $1 where link = $2;", entity.StatusMapping[status], link); err != nil {
+		fmt.Println("UpdateStatus: ", err.Error())
 	}
-
-	return p.SelectHistory(nil)
 }
 
 func (p *persistentRepo) DeleteHistory() ([]LinkModel, error) {
@@ -120,7 +119,9 @@ func (p *persistentRepo) SelectOne(status entity.Status) (*LinkModel, error) {
 	rows, err := p.db.Select(`select link, filename, work_status, message, target_quality, user_name from links
 	 where work_status = $1 order by RANDOM() limit 1;`, entity.StatusMapping[status])
 	defer func() {
-		rows.Close()
+		if err := rows.Close(); err != nil {
+			fmt.Println("send.Close: ", err.Error())
+		}
 	}()
 
 	if err != nil {
