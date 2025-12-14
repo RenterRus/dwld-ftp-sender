@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  ftp_sender:
+  ftp:
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,7 +11,8 @@ services:
     networks:
       - dwld
     volumes:
-      - /ftp_sender.yaml:/app/ftp_sender.yaml
+      - ../ftp_sender.yaml:/var/ftp_sender.yaml
+      - ../ftp_sender.db:/var/ftp_sender.db
 
 
 networks:
